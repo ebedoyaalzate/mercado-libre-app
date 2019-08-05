@@ -2,5 +2,5 @@
   <img [src]="product.thumbnail" class="img">
   <p class="product-name">{{product.title}}</p>
   <p class="product-unit">Unidades disponibles: {{product.available_quantity}}</p>
-  <p class="product-price">{{product.installments.amount}}$</p>
+  <p class="product-price">{{product.price | currency}}$</p>
 </a>
