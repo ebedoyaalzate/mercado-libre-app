@@ -1,0 +1,35 @@
+.product-container {
+  align-items: center;
+  text-decoration:none;
+  border: 1px solid gray;
+  display: grid;
+  grid-template-columns: 1fr 3fr 2fr 2fr;
+  justify-content: space-between;
+  margin: 15px 30px;
+  padding: 10px;
+  background-color: #5aa2e0;
+
+  .product-price {
+    color: blue;
+    font-size: 20px;
+    font-weight: bold;
+    justify-self: flex-end;
+    text-align: center;
+  }
+
+  .product-unit {
+    justify-self: center;
+    color: white;
+  }
+
+  .product-name {
+    color: white;
+  }
+
+  .img {
+    background: black;
+    position: relative;
+    height: 60px;
+    width: 60px;
+  }
+}

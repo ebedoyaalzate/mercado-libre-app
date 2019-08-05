@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'mercado-libre-app';
+  serchText = '';
+  products = [];
+
+  constructor(
+    private http: HttpClient
+  ) {}
+
+  findProduct() {
+    this.http.get<any>(`https://api.mercadolibre.com/sites/MCO/search?q=${this.serchText}`, {}).subscribe(res => {
+      console.log(res.results);
+      this.products = res.results;
+    });
+  }
 }
