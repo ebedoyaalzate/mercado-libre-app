@@ -1,10 +1,12 @@
-<h1>Esteban Bedoya - Mercado Libre</h1>
+<nav class="nav">
+  <P class="subtitle" i18n>Esteban Bedoya -- Mercado libre</P>
+</nav>
 
 <div class="container">
-  <input [(ngModel)]="serchText" placeholder="In a product" class="search-input"/>
-  <button (click)="findProduct()" class="search">Search</button>
+  <input [(ngModel)]="serchText" placeholder="Ingrese un producto" class="search-input"/>
+  <button (click)="findProduct()" class="search">Buscar</button>
 </div>
 
-<div class="products">
+<div class="products" *ngIf="products">
   <app-product *ngFor="let prod of products" [product]="prod"></app-product>
 </div>

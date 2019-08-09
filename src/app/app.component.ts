@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AppComponent {
   serchText = '';
-  products = [];
+  products: any;
 
   constructor(
     private http: HttpClient
@@ -17,8 +17,8 @@ export class AppComponent {
 
   findProduct() {
     this.http.get<any>(`https://api.mercadolibre.com/sites/MCO/search?q=${this.serchText}`, {}).subscribe(res => {
-      console.log(res.results);
       this.products = res.results;
+      console.log(this.products);
     });
   }
 }
