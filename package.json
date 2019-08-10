@@ -5,7 +5,6 @@
     "ng": "ng",
     "start": "node server.js",
     "build": "ng build",
-    "postinstall": "ng build --aot --prod",
     "heroku-postbuild": "ng build --prod",
     "preinstall": "npm install -g @angular/cli @angular/compiler-cli typescript",
     "test": "ng test",
@@ -53,6 +52,6 @@
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
-    "typescript": "~3.2.2"
+    "typescript": "~2.3.3"
   }
 }
