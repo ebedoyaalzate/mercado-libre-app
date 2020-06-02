@@ -1,6 +1,9 @@
-<a class="product-container" target="_blank" [href]="product.permalink">
+<a class="product-container" target="_blank" [href]="product.permalink" *ngIf="seller">
   <img [src]="product.thumbnail" class="img">
   <p class="product-name">{{product.title}}</p>
-  <p class="product-unit">ID del vendedor: {{product.seller.id}}</p>
+  <div>
+    <p class="product-unit">Vendedor</p>
+    <p class="product-unit-name">{{seller.nickname}}</p>
+  </div>
   <p class="product-price">{{product.price | currency}}$</p>
 </a>

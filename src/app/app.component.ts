@@ -19,7 +19,6 @@ export class AppComponent {
   findProduct() {
     this.mercadoLibreService.findProducts(this.serchText).subscribe(res => {
       this.products = res.results;
-      console.log(this.products);
     });
   }
 }

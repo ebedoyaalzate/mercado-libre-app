@@ -1,4 +1,5 @@
-import { mockService } from './mercaLibre.mock';
+import { mockProducts } from './mercaLibre.mock';
+import { MercadolibreService } from './../services/mercadolibre/mercadolibre.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,10 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['../product/product.component.scss']
 })
 export class FakeProductComponent implements OnInit {
-  product = mockService.results[0];
+  product = mockProducts.results[0];
 
-  constructor() { }
+  seller: any;
+
+  constructor(private mercadoLibreService: MercadolibreService) { }
 
   ngOnInit() {
+    this.mercadoLibreService.findSeller(this.product.seller.id).subscribe(res => {
+      this.seller = res;
+    });
   }
 }

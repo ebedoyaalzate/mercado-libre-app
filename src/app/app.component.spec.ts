@@ -1,4 +1,4 @@
-import { mockService } from './test/mercaLibre.mock';
+import { mockProducts } from './test/mercaLibre.mock';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MercadolibreService } from './services/mercadolibre/mercadolibre.service';
@@ -13,7 +13,7 @@ describe('AppComponent', () => {
 
   beforeEach(() => {
     const mercadolibreServiceStub = () => ({
-      findProducts: serchText => ({ subscribe: f => f(mockService) })
+      findProducts: serchText => ({ subscribe: f => f(mockProducts) })
     });
     TestBed.configureTestingModule({
       imports: [FormsModule],
@@ -47,7 +47,7 @@ describe('AppComponent', () => {
 
   it('should get products from service', () => {
     component.findProduct();
-    expect(component.products).toBe(mockService.results);
+    expect(component.products).toBe(mockProducts.results);
   });
 
   it('should search product when push search button', () => {
@@ -55,6 +55,6 @@ describe('AppComponent', () => {
     const searchButton = fixture.debugElement.query(By.css('.search')).nativeElement;
     searchButton.click();
     fixture.detectChanges();
-    expect(component.products).toBe(mockService.results);
+    expect(component.products).toBe(mockProducts.results);
   });
 });

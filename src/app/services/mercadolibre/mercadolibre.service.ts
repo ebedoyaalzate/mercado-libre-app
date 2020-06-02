@@ -11,4 +11,8 @@ export class MercadolibreService {
   findProducts(text) {
     return this.http.get<any>(`https://api.mercadolibre.com/sites/MCO/search?q=${text}`, {});
   }
+
+  findSeller(id) {
+    return this.http.get<any>(`https://api.mercadolibre.com/users/${id}`, {});
+  }
 }

@@ -1,4 +1,4 @@
-import { mockService } from './../../test/mercaLibre.mock';
+import { mockProducts, mockSeller } from './../../test/mercaLibre.mock';
 import { TestBed } from '@angular/core/testing';
 import {
   HttpClientTestingModule,
@@ -10,7 +10,9 @@ describe('MercadolibreService', () => {
   let service: MercadolibreService;
   let httpMock: HttpTestingController;
   const textToFind = 'Play';
-  const requestUrl = 'https://api.mercadolibre.com/sites/MCO/search?q=';
+  const sellerId = 1;
+  const requesProductstUrl = 'https://api.mercadolibre.com/sites/MCO/search?q=';
+  const requesSellerUrl = 'https://api.mercadolibre.com/users';
 
 
   beforeEach(() => {
@@ -26,26 +28,47 @@ describe('MercadolibreService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('service send GET request', () => {
-    service.findProducts(textToFind).subscribe(response => {});
-    const request = httpMock.expectOne(`${requestUrl}${textToFind}`);
-    expect(request.request.method).toBe('GET');
-    request.flush(mockService);
+  describe('FindProducts method', () => {
+
+    it('service send GET request', () => {
+      service.findProducts(textToFind).subscribe(response => { });
+      const request = httpMock.expectOne(`${requesProductstUrl}${textToFind}`);
+      expect(request.request.method).toBe('GET');
+      request.flush(mockProducts);
+    });
+
+    it('service can be able to respond data', () => {
+      service.findProducts(textToFind).subscribe(response => {
+        expect(response.results.length).toBe(2);
+      });
+      const request = httpMock.expectOne(`${requesProductstUrl}${textToFind}`);
+      request.flush(mockProducts);
+    });
+
+    it('service can be able to respond the correct object', () => {
+      service.findProducts(textToFind).subscribe(response => {
+        expect(response).toEqual(mockProducts);
+      });
+      const request = httpMock.expectOne(`${requesProductstUrl}${textToFind}`);
+      request.flush(mockProducts);
+    });
   });
 
-  it('service can be able to respond data', () => {
-    service.findProducts(textToFind).subscribe(response => {
-      expect(response.results.length).toBe(2);
-    });
-    const request = httpMock.expectOne(`${requestUrl}${textToFind}`);
-    request.flush(mockService);
-  });
+  describe('FindSeller method', () => {
 
-  it('service can be able to respond the correct object', () => {
-    service.findProducts(textToFind).subscribe(response => {
-      expect(response).toEqual(mockService);
+    it('service send GET request', () => {
+      service.findSeller(sellerId).subscribe(response => { });
+      const request = httpMock.expectOne(`${requesSellerUrl}/${sellerId}`);
+      expect(request.request.method).toBe('GET');
+      request.flush(mockSeller);
     });
-    const request = httpMock.expectOne(`${requestUrl}${textToFind}`);
-    request.flush(mockService);
+
+    it('service can be able to respond the correct object', () => {
+      service.findSeller(sellerId).subscribe(response => {
+        expect(response).toEqual(mockSeller);
+      });
+      const request = httpMock.expectOne(`${requesSellerUrl}/${sellerId}`);
+      request.flush(mockSeller);
+    });
   });
 });

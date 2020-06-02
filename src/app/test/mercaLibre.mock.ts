@@ -1,4 +1,4 @@
-export const mockService = {
+export const mockProducts = {
   results:
   [
     {
@@ -15,4 +15,8 @@ export const mockService = {
       permalink: 'https://articulo.mercadolibre.com.co/MCO-547587780-ps4-pro-1tb-1-control-original-playstation-4-consola-4k-_JM'
     }
   ]
+};
+
+export const mockSeller = {
+  nickName: 'Clínica del play'
 };
