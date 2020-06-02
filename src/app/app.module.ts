@@ -8,10 +8,12 @@ import { NgxCurrencyModule } from 'ngx-currency';
 import { AppComponent } from './app.component';
 import { ProductComponent } from './product/product.component';
 
+import { FakeProductComponent } from './test/fakeProduct.component';
 @NgModule({
   declarations: [
     AppComponent,
-    ProductComponent
+    ProductComponent,
+    FakeProductComponent
   ],
   imports: [
     BrowserModule,

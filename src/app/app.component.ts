@@ -1,3 +1,4 @@
+import { MercadolibreService } from './services/mercadolibre/mercadolibre.service';
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
@@ -12,11 +13,11 @@ export class AppComponent {
   products: any;
 
   constructor(
-    private http: HttpClient
+    private mercadoLibreService: MercadolibreService
   ) {}
 
   findProduct() {
-    this.http.get<any>(`https://api.mercadolibre.com/sites/MCO/search?q=${this.serchText}`, {}).subscribe(res => {
+    this.mercadoLibreService.findProducts(this.serchText).subscribe(res => {
       this.products = res.results;
       console.log(this.products);
     });

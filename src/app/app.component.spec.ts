@@ -1,31 +1,60 @@
-import { TestBed, async } from '@angular/core/testing';
+import { mockService } from './test/mercaLibre.mock';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { MercadolibreService } from './services/mercadolibre/mercadolibre.service';
+import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
+import { By } from '@angular/platform-browser';
+
 
 describe('AppComponent', () => {
-  beforeEach(async(() => {
+  let component: AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
+
+  beforeEach(() => {
+    const mercadolibreServiceStub = () => ({
+      findProducts: serchText => ({ subscribe: f => f(mockService) })
+    });
     TestBed.configureTestingModule({
-      declarations: [
-        AppComponent
-      ],
-    }).compileComponents();
-  }));
-
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
+      imports: [FormsModule],
+      schemas: [NO_ERRORS_SCHEMA],
+      declarations: [AppComponent],
+      providers: [
+        { provide: MercadolibreService, useFactory: mercadolibreServiceStub }
+      ]
+    });
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
   });
 
-  it(`should have as title 'mercado-libre-app'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('mercado-libre-app');
+  it('can load instance', () => {
+    expect(component).toBeTruthy();
   });
 
-  it('should render title in a h1 tag', () => {
-    const fixture = TestBed.createComponent(AppComponent);
+  it('Should print Title in front', () => {
+    const title = fixture.debugElement.query(By.css('.subtitle')).nativeElement;
+    expect(title.innerHTML).toBe('Mercado libre');
+  });
+
+  it('should call findProducts from service', () => {
+    const mercadolibreServiceStub: MercadolibreService = fixture.debugElement.injector.get(
+      MercadolibreService
+    );
+    spyOn(mercadolibreServiceStub, 'findProducts').and.callThrough();
+    component.findProduct();
+    expect(mercadolibreServiceStub.findProducts).toHaveBeenCalled();
+  });
+
+  it('should get products from service', () => {
+    component.findProduct();
+    expect(component.products).toBe(mockService.results);
+  });
+
+  it('should search product when push search button', () => {
+    component.serchText = 'Play Station';
+    const searchButton = fixture.debugElement.query(By.css('.search')).nativeElement;
+    searchButton.click();
     fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to mercado-libre-app!');
+    expect(component.products).toBe(mockService.results);
   });
 });
