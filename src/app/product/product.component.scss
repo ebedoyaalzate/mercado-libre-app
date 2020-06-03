@@ -35,12 +35,20 @@
     justify-self: center;
     color: black;
     font-weight: bold;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width:200px;
   }
 
   .product-name {
     font-weight: bold;
     justify-self: center;
     color: black;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width:200px;
   }
 
   .img {
